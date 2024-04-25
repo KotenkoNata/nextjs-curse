@@ -1,8 +1,9 @@
+import styles from './Post.module.css';
 function Post({author, body}) {
     return (
-        <div>
-            <p>{author}</p>
-            <p>{body}</p>
+        <div className={styles.post}>
+            <p className={styles.author}>{author}</p>
+            <p className={styles.text}>{body}</p>
         </div>
     )
 }
