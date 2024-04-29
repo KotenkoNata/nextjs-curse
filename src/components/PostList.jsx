@@ -19,7 +19,9 @@ function PostList({isPosting, onStopPosting}) {
     return (
         <>
             {isPosting && (<Modal onClose={onStopPosting}>
-                <NewPost onBodyChange={changeBodyHandler} onAuthorChange={onAuthorChange}/>
+                <NewPost onBodyChange={changeBodyHandler}
+                         onCancel={onStopPosting}
+                         onAuthorChange={onAuthorChange}/>
             </Modal>)}
             <ul className={styles.posts}>
                 <Post author={author} body={enteredBody}/>
