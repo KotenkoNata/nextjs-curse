@@ -1,7 +1,7 @@
 import classes from './NewPost.module.css';
 import {useState} from "react";
 
-function NewPost({onBodyChange, onAuthorChange, onCancel }) {
+function NewPost({onCancel, onAddPost }) {
 
     const [enteredBody, setEnteredBody] = useState('');
     const [author, setAuthor] = useState('');
@@ -21,12 +21,12 @@ function NewPost({onBodyChange, onAuthorChange, onCancel }) {
             author: author,
         }
 
-        console.log(postData)
+        onAddPost(postData)
         onCancel();
     }
 
     return (
-        <form className={classes.form} onSubmit={onBodyChange}>
+        <form className={classes.form} onSubmit={submitHandler}>
             <p>
                 <label htmlFor="body">Text</label>
                 <textarea id="body" required rows={3} onChange={changeBodyHandler}/>
