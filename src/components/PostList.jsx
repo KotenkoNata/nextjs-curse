@@ -5,17 +5,20 @@ import Modal from "./Modal";
 import {useEffect, useState} from "react";
 
 function PostList({isPosting, onStopPosting}) {
+    const [posts, setPost] = useState([]);
+    const [isFetching, setIsFetching] = useState(false);
+
+
     useEffect(() => {
         async function fetchPosts() {
             const response = await fetch('http://localhost:8080/posts')
             const resData = await response.json()
-            setPost(resData.posts)
+            setPost(resData.posts);
+            setIsFetching(false);
         }
 
         fetchPosts();
     }, []);
-
-    const [posts, setPost] = useState([]);
 
     function addPostHandler(postData) {
         fetch('http://localhost:8080/posts', {
@@ -32,13 +35,18 @@ function PostList({isPosting, onStopPosting}) {
             {isPosting && (<Modal onClose={onStopPosting}>
                 <NewPost onCancel={onStopPosting} onAddPost={addPostHandler}/>
             </Modal>)}
-            {posts.length > 0 && (<ul className={styles.posts}>
+            {!isFetching && posts.length > 0 && (<ul className={styles.posts}>
                 {posts.map((post) => <Post key={post.body} author={post.author} body={post.body}/>)}
             </ul>)}
-            {posts.length === 0 && (<div style={{textAlign: 'center', color: 'white'}}>
+            {!isFetching && posts.length === 0 && (<div style={{textAlign: 'center', color: 'white'}}>
                 <h2>There are no posts yet</h2>
                 <p>Start adding some!</p>
             </div>)}
+            {isFetching && (
+                <div style={{textAlign: 'center', color: 'white'}}>
+                    <p>Loading posts...</p>
+                </div>
+            )}
         </>
     )
 }
