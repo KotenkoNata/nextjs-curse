@@ -5,13 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {RouterProvider, createBrowserRouter} from "react-router-dom";
 import NewPost from "./components/NewPost";
+import RootLayout from "./routes/RootLayout";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const router = createBrowserRouter([
-    {path: '/', element:},
-    {path: '/', element: <App />},
-    {path: '/create-post', element: <NewPost />}
+    {path: '/',
+        element: <RootLayout />,
+        children: [
+            {path: '/', element: <App />},
+            {path: '/create-post', element: <NewPost />}
+        ]},
 ])
 
 root.render(
