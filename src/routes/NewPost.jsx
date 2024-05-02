@@ -3,7 +3,6 @@ import Modal from "../components/Modal";
 import {Link, Form, redirect} from "react-router-dom";
 
 function NewPost() {
-
     return (
         <Modal>
             <Form method='post' className={classes.form}>
@@ -28,7 +27,8 @@ export default NewPost;
 
 export async function action({request}) {
     const formData = await request.formData();
-    const postData = Object.entries(formData);
+    const postData = Object.fromEntries(formData);
+
     await fetch('http://localhost:8080/posts', {
         method: "POST",
         body: JSON.stringify(postData),
