@@ -36,6 +36,7 @@ export default function ImagePicker({label, name}) {
                     fill/>}
             </div>
             <input
+                required
                 className={classes.input}
                 type='file'
                 id={name}
